@@ -28,23 +28,27 @@ const questions = [
     },
 ];
 let chosenShape;
-function createSvg(fileName, data) {
+let chosenText;
+let text;
+
+
+function createSvg(fileName, svg) {
     const folderLocation = './examples/'
-    const renderShape = chosenShape.render()
+    const renderShape = svg.render()
+    // const renderTextColor = text.renderTextColor()
 
     fs.writeFile(folderLocation + fileName, renderShape, (err) => {
-        if (err) {throw err;}
-        else{
-        console.log('SVG Generated!')
+        if (err) { throw err; }
+        else {
+            console.log('SVG Generated!')
         }
     }
     )
+
 }
 
 function init() {
     inquirer.prompt(questions).then((answers) => {
-        
-
         switch (answers.shape) {
             case 'Circle':
                 chosenShape = new Circle()
@@ -56,8 +60,15 @@ function init() {
                 chosenShape = new Square()
                 break;
         }
-        chosenShape.setShapeColor(answers.shapeColor)
-        createSvg('logo.svg', answers)
+        let svg = new Svg()
+
+        console.log(chosenShape)
+        svg.renderTextColor(answers.text, answers.textColor)
+        svg.renderShapeChosen(chosenShape)
+        console.log(svg)
+        
+
+        createSvg('logo.svg', svg)
     })
 }
 
