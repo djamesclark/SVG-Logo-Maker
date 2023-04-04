@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Svg = require('./lib/svg')
-const {Circle, Square, Triangle}= require('./lib/shapes')
+const { Circle, Square, Triangle } = require('./lib/shapes')
 
 const questions = [
     {
@@ -20,7 +20,7 @@ const questions = [
         name: 'shape',
         choices: ['Circle', 'Triangle', 'Square']
     },
-    
+
     {
         type: 'input',
         message: 'What color would you like your shape to be?',
@@ -28,22 +28,37 @@ const questions = [
     },
 ];
 
-inquirer.prompt(questions).then((answers)=>{
-    let chosenShape;
+function createSvg(fileName, data) {
+    const folderLocation = './examples'
+    const renderShape = render(data)
 
-    switch (answers.shape) {
-        case 'Circle':
-            chosenShape = new Circle()
-            break;
-        case 'Triangle':
-            chosenShape = new Triangle()
-            break;
-        default:
-            chosenShape = new Square()
-            break;
+    fs.writeFile(folderLocation + fileName, data, (err) => {
+        if (err) {throw err;}
+        else{
+        console.log('SVG Generated!')
+        }
     }
-    chosenShape.setShapeColor(answers.shapeColor)
+    )
+}
 
+function init() {
+    inquirer.prompt(questions).then((answers) => {
+        let chosenShape;
 
+        switch (answers.shape) {
+            case 'Circle':
+                chosenShape = new Circle()
+                break;
+            case 'Triangle':
+                chosenShape = new Triangle()
+                break;
+            default:
+                chosenShape = new Square()
+                break;
+        }
+        chosenShape.setShapeColor(answers.shapeColor)
+        createSvg('logo.svg', answers)
+    })
+}
 
-})
+init();
