@@ -27,12 +27,12 @@ const questions = [
         name: 'shapeColor',
     },
 ];
-
+let chosenShape;
 function createSvg(fileName, data) {
-    const folderLocation = './examples'
-    const renderShape = render(data)
+    const folderLocation = './examples/'
+    const renderShape = chosenShape.render()
 
-    fs.writeFile(folderLocation + fileName, data, (err) => {
+    fs.writeFile(folderLocation + fileName, renderShape, (err) => {
         if (err) {throw err;}
         else{
         console.log('SVG Generated!')
@@ -43,7 +43,7 @@ function createSvg(fileName, data) {
 
 function init() {
     inquirer.prompt(questions).then((answers) => {
-        let chosenShape;
+        
 
         switch (answers.shape) {
             case 'Circle':
