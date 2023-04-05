@@ -49,12 +49,15 @@ function init() {
         switch (answers.shape) {
             case 'Circle':
                 chosenShape = new Circle()
+                chosenShape.setShapeColor(answers.shapeColor)
                 break;
             case 'Triangle':
                 chosenShape = new Triangle()
+                chosenShape.setShapeColor(answers.shapeColor)
                 break;
             default:
                 chosenShape = new Square()
+                chosenShape.setShapeColor(answers.shapeColor)
                 break;
         }
         let svg = new Svg()
