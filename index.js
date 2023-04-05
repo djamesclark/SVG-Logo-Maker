@@ -28,9 +28,6 @@ const questions = [
     },
 ];
 let chosenShape;
-let chosenText;
-let text;
-
 
 function createSvg(fileName, svg) {
     const folderLocation = './examples/'
@@ -40,7 +37,7 @@ function createSvg(fileName, svg) {
     fs.writeFile(folderLocation + fileName, renderShape, (err) => {
         if (err) { throw err; }
         else {
-            console.log('SVG Generated!')
+            console.log('Generated logo.svg')
         }
     }
     )
@@ -62,12 +59,10 @@ function init() {
         }
         let svg = new Svg()
 
-        console.log(chosenShape)
         svg.renderTextColor(answers.text, answers.textColor)
         svg.renderShapeChosen(chosenShape)
         console.log(svg)
         
-
         createSvg('logo.svg', svg)
     })
 }
